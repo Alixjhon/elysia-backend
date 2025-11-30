@@ -4,7 +4,7 @@ import client from "./db";
 import { loginRoutes } from "./login";
 import { registerRoutes } from "./register";
 import { healthDashboardRoutes } from "./health/health_dashboard";
-import { appointmentRoutes } from "./health/appoint"; 
+import { appointmentRoutes } from "./health/appoint";
 import { appointmentAdminRoutes } from "./health/appoint_admin";
 import { inventoryRoutes } from "./health/supplies_admin";
 import { healthRecordsRoutes } from "./health/health_records";
@@ -14,11 +14,10 @@ import { documentRequestRoutes } from "./secretary/document_request";
 import { treasurerDashboard } from "./treasurer/treasurer_dashboard";
 import { destributionRoutes } from "./treasurer/destribution";
 
-// Use the dynamic port Render provides, fallback to 3000 locally
+// Render provides PORT — fallback to 3000 locally
 const port = Number(process.env.PORT) || 3000;
 
 const app = new Elysia()
-  // Register all routes
   .use(loginRoutes)
   .use(registerRoutes)
   .use(healthDashboardRoutes)
@@ -59,7 +58,7 @@ const app = new Elysia()
     }
   })
 
-  // Delete a user
+  // Delete user
   .delete("/users/:userId", async ({ params }) => {
     const userId = parseInt(params.userId);
 
@@ -77,9 +76,9 @@ const app = new Elysia()
       console.error(err);
       return { error: "Failed to delete user(s)" };
     }
-  })
+  });
 
-  // Start server on dynamic port
-  app.listen(port);
+// ✅ START SERVER (this must be *after* the chain)
+app.listen(port);
 
 console.log(`🦊 Elysia server is running on port ${port}`);
