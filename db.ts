@@ -1,25 +1,22 @@
-import { Client } from "pg";
-import "dotenv/config";
+import pkg from "pg";
+const { Pool } = pkg;
 
 if (!process.env.DATABASE_URL) {
   console.error("❌ DATABASE_URL is missing!");
   process.exit(1);
 }
 
-console.log("📌 Using DATABASE_URL:", process.env.DATABASE_URL);
-
-const client = new Client({
+const client = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
-    rejectUnauthorized: false
-  }
+    rejectUnauthorized: false, // required for Neon
+  },
 });
 
-await client.connect()
+client.connect()
   .then(() => console.log("✅ Connected to Postgres!"))
   .catch((err) => {
-    console.error("❌ Failed to connect to Postgres:");
-    console.error(err);
+    console.error("❌ Failed to connect to Postgres:", err);
     process.exit(1);
   });
 
