@@ -1,21 +1,19 @@
 {
   "name": "elysia-backend",
-  "module": "server.ts",
   "type": "module",
   "private": true,
   "scripts": {
+    "build": "tsc",
     "start": "bun run server.ts",
     "dev": "bun run server.ts"
   },
   "devDependencies": {
+    "typescript": "^5.9.2",
     "@types/bcrypt": "^6.0.0",
     "@types/bcryptjs": "^3.0.0",
     "@types/bun": "latest",
     "@types/node": "^24.5.2",
     "@types/pg": "^8.15.5"
-  },
-  "peerDependencies": {
-    "typescript": "^5.9.2"
   },
   "dependencies": {
     "appoint": "^1.1.1",
