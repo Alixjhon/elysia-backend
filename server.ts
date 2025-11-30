@@ -12,11 +12,14 @@ import { requestDocumentRoutes } from "./Resident/request_documents";
 import { secretaryRoutes } from "./secretary/secretary_dasboard";
 import { documentRequestRoutes } from "./secretary/document_request";
 import { treasurerDashboard } from "./treasurer/treasurer_dashboard";
-import{ destributionRoutes } from "./treasurer/destribution";
+import { destributionRoutes } from "./treasurer/destribution";
 
+// Use the dynamic port Render provides, fallback to 3000 locally
+const PORT = Number(process.env.PORT) || 3000;
 
 const app = new Elysia()
-  .use(loginRoutes) 
+  // Register all routes
+  .use(loginRoutes)
   .use(registerRoutes)
   .use(healthDashboardRoutes)
   .use(appointmentRoutes)
@@ -28,7 +31,6 @@ const app = new Elysia()
   .use(documentRequestRoutes)
   .use(treasurerDashboard)
   .use(destributionRoutes)
-
 
   // Root endpoint
   .get("/", () => "Hello from Elysia!")
@@ -57,7 +59,7 @@ const app = new Elysia()
     }
   })
 
-
+  // Delete a user
   .delete("/users/:userId", async ({ params }) => {
     const userId = parseInt(params.userId);
 
@@ -67,7 +69,6 @@ const app = new Elysia()
 
     try {
       const res = await client.query("DELETE FROM users WHERE user_id = $1", [userId]);
-
       return {
         success: true,
         message: `Deleted ${res.rowCount} user(s) with user_id = ${userId}`,
@@ -78,7 +79,7 @@ const app = new Elysia()
     }
   })
 
-  // Start server
-  .listen(3000);
+  // Start server on dynamic port
+  .listen(PORT);
 
-console.log(`🦊 Elysia server is running at http://localhost:3000`);
+console.log(`🦊 Elysia server is running on port ${PORT}`);
