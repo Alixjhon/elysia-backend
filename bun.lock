@@ -1,5 +1,6 @@
 {
   "lockfileVersion": 1,
+  "configVersion": 0,
   "workspaces": {
     "": {
       "name": "elysia-backend",
@@ -18,8 +19,6 @@
         "@types/bun": "latest",
         "@types/node": "^24.5.2",
         "@types/pg": "^8.15.5",
-      },
-      "peerDependencies": {
         "typescript": "^5.9.2",
       },
     },
