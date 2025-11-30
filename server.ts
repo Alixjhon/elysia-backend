@@ -15,7 +15,7 @@ import { treasurerDashboard } from "./treasurer/treasurer_dashboard";
 import { destributionRoutes } from "./treasurer/destribution";
 
 // Use the dynamic port Render provides, fallback to 3000 locally
-const PORT = Number(process.env.PORT) || 3000;
+const port = Number(process.env.PORT) || 3000;
 
 const app = new Elysia()
   // Register all routes
@@ -80,6 +80,6 @@ const app = new Elysia()
   })
 
   // Start server on dynamic port
-  .listen(PORT);
+  app.listen(port);
 
-console.log(`🦊 Elysia server is running on port ${PORT}`);
+console.log(`🦊 Elysia server is running on port ${port}`);
