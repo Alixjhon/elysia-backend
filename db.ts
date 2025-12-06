@@ -9,15 +9,12 @@ if (!process.env.DATABASE_URL) {
 const client = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
-    rejectUnauthorized: false, // required for Neon
+    rejectUnauthorized: false, // Required for Neon
   },
+  keepAlive: true,              // Prevent unexpected termination
 });
 
-client.connect()
-  .then(() => console.log("✅ Connected to Postgres!"))
-  .catch((err) => {
-    console.error("❌ Failed to connect to Postgres:", err);
-    process.exit(1);
-  });
+// DO NOT call client.connect() when using Pool
+console.log("🟢 PostgreSQL pool initialized (Neon)");
 
 export default client;
