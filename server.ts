@@ -13,6 +13,7 @@ import { secretaryRoutes } from "./secretary/secretary_dasboard";
 import { documentRequestRoutes } from "./secretary/document_request";
 import { treasurerDashboard } from "./treasurer/treasurer_dashboard";
 import { destributionRoutes } from "./treasurer/destribution";
+import { kagawadDashboard } from "./kagawad/kagawadDashboard";
 
 // Use Render's dynamic port, fallback to 3000 locally
 const port = Number(process.env.PORT) || 3000;
@@ -30,6 +31,7 @@ const app = new Elysia()
   .use(documentRequestRoutes)
   .use(treasurerDashboard)
   .use(destributionRoutes)
+  .use(kagawadDashboard)
 
   // Root endpoint
   .get("/", () => "Hello from Elysia!")
