@@ -24,23 +24,26 @@ export const kagawadDashboard = new Elysia({ prefix: "/kagawad" })
   // =======================================================
   // 2. COMMUNITY PROGRAM DISTRIBUTION (Mapped to EVENTS by month)
   // =======================================================
-  .get("/program-distribution", async () => {
-    try {
-      const result = await client.query(`
-        SELECT 
-          TO_CHAR(event_date, 'Month') AS label,
-          COUNT(*) AS total
-        FROM events
-        GROUP BY label
-        ORDER BY MIN(event_date)
-      `);
+ .get("/program-distribution", async () => {
+  try {
+    const result = await client.query(`
+      SELECT 
+        TO_CHAR(event_date, 'Month') AS label,
+        COUNT(*) AS total
+      FROM events
+      GROUP BY 
+        TO_CHAR(event_date, 'Month'),
+        DATE_TRUNC('month', event_date)
+      ORDER BY 
+        DATE_TRUNC('month', event_date)
+    `);
 
-      return { distribution: result.rows };
-    } catch (err) {
-      console.error("❌ Error:", err);
-      return { error: "Failed to load program distribution" };
-    }
-  })
+    return { distribution: result.rows };
+  } catch (err) {
+    console.error("❌ Error:", err);
+    return { error: "Failed to load program distribution" };
+  }
+})
 
 
   // =======================================================
